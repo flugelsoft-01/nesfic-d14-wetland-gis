@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jaldrishti-assam",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-26",
+  "assets": {
+    "directory": "./static",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
