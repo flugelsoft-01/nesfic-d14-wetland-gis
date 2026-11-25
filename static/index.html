@@ -4,6 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JalDrishti Assam | NESFIC-D-14 Wetland Mapping &amp; Seasonal Monitoring</title>
+  <meta name="description" content="JalDrishti Assam is an AI-enabled Sentinel-1 SAR and Sentinel-2 Web GIS platform for seasonal wetland mapping, permanent vs. seasonal water classification, irrigation planning, and fisheries management across Assam (NESFIC-D-14 / ASSAC)." />
+  <meta name="keywords" content="Assam wetland mapping, beel monitoring, Sentinel-1 SAR, Sentinel-2, ASSAC, NESFIC-D-14, irrigation GIS, fisheries GIS, Deepor Beel, Son Beel, JalDrishti Assam, Flugelsoft Labs" />
+  <meta name="author" content="Kalyanjit Hatibaruah — Flugelsoft Labs" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#020617" />
+
+  <!-- GEO Meta Tags (Assam, India) -->
+  <meta name="geo.region" content="IN-AS" />
+  <meta name="geo.placename" content="Assam, India" />
+  <meta name="geo.position" content="26.2006;92.9376" />
+  <meta name="ICBM" content="26.2006, 92.9376" />
+
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JalDrishti Assam | Wetland Mapping &amp; Seasonal Monitoring (NESFIC-D-14)" />
+  <meta property="og:description" content="Multi-sensor Sentinel-1 SAR &amp; Sentinel-2 Web GIS, automated change alerts, and field verification PWA for Assam's wetlands, irrigation, and fisheries." />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:site_name" content="JalDrishti Assam by Flugelsoft Labs" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JalDrishti Assam | NESFIC-D-14 Wetland GIS" />
+  <meta name="twitter:description" content="Seasonal wetland mapping and monitoring for irrigation and fisheries in Assam, India." />
+
+  <!-- Favicon & Canonical -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://jaldrishti-assam.workers.dev/" />
+
+  <!-- Structured Data (GEO / Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JalDrishti Assam",
+    "applicationCategory": "GISApplication",
+    "operatingSystem": "Web",
+    "description": "Multi-sensor Sentinel-1 SAR and Sentinel-2 Web GIS platform for seasonal wetland mapping and monitoring for irrigation and fisheries in Assam, India (NESFIC-D-14).",
+    "author": {
+      "@type": "Person",
+      "name": "Kalyanjit Hatibaruah"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Flugelsoft Labs"
+    },
+    "spatialCoverage": {
+      "@type": "Place",
+      "name": "Assam, India",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 26.2006,
+        "longitude": 92.9376
+      }
+    }
+  }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
@@ -302,6 +358,46 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/90 bg-slate-950 text-slate-400 text-xs mt-6">
+    <div class="max-w-[1440px] mx-auto px-4 py-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="text-slate-200 font-semibold">
+            JalDrishti Assam · NESFIC-D-14 Wetland Mapping &amp; Seasonal Monitoring
+          </div>
+          <div class="mt-1">
+            Lead Applicant: <span class="text-cyan-300 font-medium">Kalyanjit Hatibaruah</span> ·
+            &copy; 2026 <span class="text-slate-200 font-medium">Flugelsoft Labs</span>. All rights reserved.
+          </div>
+        </div>
+
+        <nav aria-label="Footer GIS and Documentation Links" class="flex flex-wrap items-center gap-4 text-[11px]">
+          <a href="/api/ogc/wfs?season=post_monsoon" title="Assam Wetlands OGC WFS GeoJSON Service" class="hover:text-cyan-300 transition">
+            Assam Wetlands OGC WFS
+          </a>
+          <a href="/api/wetlands?format=geojson&amp;season=monsoon" title="Download Assam Monsoon SAR Wetland Polygons GeoJSON" class="hover:text-cyan-300 transition">
+            Monsoon SAR GeoJSON
+          </a>
+          <a href="/api/wetlands?format=csv&amp;season=post_monsoon" title="Download Assam Post-Monsoon Wetland Statistics CSV" class="hover:text-cyan-300 transition">
+            Assam Wetland Stats CSV
+          </a>
+          <a href="/sitemap.xml" title="JalDrishti Assam XML Sitemap" class="hover:text-cyan-300 transition">
+            Sitemap
+          </a>
+        </nav>
+      </div>
+
+      <div class="rounded-lg border border-slate-800/80 bg-slate-900/50 p-3 text-[11px] leading-relaxed text-slate-400">
+        <strong class="text-slate-300">Disclaimer:</strong> This application is a functional solution prototype developed by
+        <strong class="text-slate-300">Flugelsoft Labs</strong> (Lead Applicant: <strong class="text-slate-300">Kalyanjit Hatibaruah</strong>)
+        for the <strong class="text-slate-300">North East Seva First Innovation Challenge (NESFIC-D-14)</strong> — Department of Science &amp; Technology,
+        Government of Assam (ASSAC). Displayed seasonal wetland polygons, spectral indices, and alerts use representative demonstration data for
+        validation and UI walkthroughs; integration with official ASSAC and departmental GIS layers remains subject to formal data-sharing and security approvals.
+      </div>
+    </div>
+  </footer>
 
   <script src="/app.js"></script>
 </body>

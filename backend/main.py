@@ -243,3 +243,18 @@ def index():
 @app.get("/app.js")
 def app_js():
     return FileResponse(str(STATIC_DIR / "app.js"), media_type="application/javascript")
+
+
+@app.get("/favicon.svg")
+def favicon():
+    return FileResponse(str(STATIC_DIR / "favicon.svg"), media_type="image/svg+xml")
+
+
+@app.get("/robots.txt")
+def robots():
+    return FileResponse(str(STATIC_DIR / "robots.txt"), media_type="text/plain")
+
+
+@app.get("/sitemap.xml")
+def sitemap():
+    return FileResponse(str(STATIC_DIR / "sitemap.xml"), media_type="application/xml")
