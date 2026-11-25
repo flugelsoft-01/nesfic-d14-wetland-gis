@@ -4,9 +4,9 @@
   "private": true,
   "description": "NESFIC-D-14: Multi-Sensor Wetland Mapping & Seasonal Monitoring for Irrigation and Fisheries (ASSAC)",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "deploy:dry-run": "wrangler deploy --dry-run"
+    "build": "echo 'Cloudflare Pages build ready'",
+    "dev": "wrangler pages dev ./static",
+    "deploy": "wrangler pages deploy ./static"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
