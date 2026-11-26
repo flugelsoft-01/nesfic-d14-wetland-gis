@@ -119,9 +119,17 @@
         </button>
       </nav>
 
-      <button onclick="toggleExportModal(true)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 transition">
-        OGC / Export Data
-      </button>
+      <div class="flex items-center gap-2">
+        <a href="#tutorial" onclick="openInfoModal('tutorial'); return false;" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-cyan-300 hover:bg-slate-800 border border-slate-800 transition">
+          Tutorial
+        </a>
+        <a href="#technical" onclick="openInfoModal('technical'); return false;" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-sky-300 hover:bg-slate-800 border border-slate-800 transition">
+          Technical &amp; Glossary
+        </a>
+        <button onclick="toggleExportModal(true)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 transition">
+          OGC / Export Data
+        </button>
+      </div>
     </div>
   </header>
 
@@ -325,6 +333,130 @@
       </div>
     </section>
   </main>
+
+  <!-- Tutorial Modal -->
+  <div id="tutorial-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
+    <div class="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl space-y-4 text-xs leading-relaxed">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-white">How to Use JalDrishti Assam — User Tutorial</h2>
+          <p class="text-[11px] text-cyan-300">Quick-start guide for ASSAC, Fisheries, Irrigation &amp; District Officers</p>
+        </div>
+        <button onclick="closeInfoModals()" class="px-2.5 py-1 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">✕</button>
+      </div>
+
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800 p-3.5">
+        <h3 class="text-sm font-semibold text-cyan-300 mb-1">What Is This Application About?</h3>
+        <p class="text-slate-300">
+          Assam's wetlands (<em>beels</em>, oxbow lakes, and floodplain marshes) expand dramatically during the monsoon and shrink in winter.
+          Because monsoon clouds block regular camera satellites, <strong>JalDrishti Assam</strong> combines cloud-penetrating radar satellites
+          (Sentinel-1) with optical satellites (Sentinel-2) to give departments a year-round map of permanent vs. seasonal water, early alerts
+          for shrinkage or water hyacinth blooms, and a mobile tool for field verification.
+        </p>
+      </div>
+
+      <div class="space-y-2.5">
+        <h3 class="text-sm font-semibold text-white">5-Step Walkthrough</h3>
+        <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-3">
+          <strong class="text-cyan-300">1. Switch Seasons:</strong> Use the <em>Pre-Monsoon</em>, <em>Monsoon (SAR)</em>, <em>Post-Monsoon</em>, and <em>Winter</em> buttons above the map to see how each wetland's water boundary expands and contracts.
+        </div>
+        <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-3">
+          <strong class="text-cyan-300">2. Filter &amp; Inspect Wetlands:</strong> Filter by District or Sector (Fisheries / Irrigation), or click any polygon on the map or row in the inventory to view its permanent core (dashed blue), seasonal spread, and water-quality indices.
+        </div>
+        <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-3">
+          <strong class="text-cyan-300">3. Review Change Alerts:</strong> Open the <em>Change Alerts</em> tab to see wetlands flagged for abnormal shrinkage, water hyacinth overgrowth, or suspected encroachment. Click <em>Locate</em> to zoom to it or <em>Dispatch</em> to assign a field check.
+        </div>
+        <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-3">
+          <strong class="text-cyan-300">4. Ground-Truth via Field PWA:</strong> Open the <em>Field Verification PWA</em> tab on a phone or browser, lock GPS coordinates, record water level, hyacinth cover, and fisheries/irrigation status, and submit to update the central audit log.
+        </div>
+        <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-3">
+          <strong class="text-cyan-300">5. Export GIS Data:</strong> Click <em>OGC / Export Data</em> in the top-right to download GeoJSON polygons for QGIS/ArcGIS, CSV statistics for reports, or connect directly via the OGC WFS endpoint.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical & Glossary Modal -->
+  <div id="technical-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
+    <div class="w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl space-y-5 text-xs leading-relaxed">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-white">Technical Architecture, Formulas &amp; Glossary</h2>
+          <p class="text-[11px] text-sky-300">Plain-language guide to the satellite science &amp; engineering behind JalDrishti Assam</p>
+        </div>
+        <button onclick="closeInfoModals()" class="px-2.5 py-1 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">✕</button>
+      </div>
+
+      <!-- Engineering Stack -->
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold text-sky-300">1. Technology Stack &amp; Engineering</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-white mb-1">All-Weather Radar + Optical Fusion</div>
+            <p class="text-slate-300">Uses <strong>Sentinel-1 SAR</strong> (radar that sees through monsoon clouds) and <strong>Sentinel-2</strong> (multi-spectral camera) at 10m resolution to map water every 6–12 days.</p>
+          </div>
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-white mb-1">Edge Web GIS &amp; Open Standards</div>
+            <p class="text-slate-300">Powered by <strong>Cloudflare Pages &amp; Workers</strong> (and Python FastAPI), rendering interactive vector polygons with <strong>MapLibre GL JS</strong> and exporting OGC WFS/GeoJSON.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulas in Plain English -->
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold text-sky-300">2. Key Formulas Explained Simply</h3>
+        <div class="space-y-2">
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-cyan-300">NDWI (Normalized Difference Water Index) = (Green − NIR) / (Green + NIR)</div>
+            <p class="text-slate-300 mt-0.5">Water absorbs Near-Infrared (NIR) light while plants and soil reflect it. A positive NDWI score (above 0.2) tells us a pixel is open water rather than land.</p>
+          </div>
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-cyan-300">MNDWI (Modified NDWI) = (Green − SWIR) / (Green + SWIR)</div>
+            <p class="text-slate-300 mt-0.5">Replaces NIR with Short-Wave Infrared (SWIR) to cleanly separate shallow or muddy wetland edges from built-up embankments and roads.</p>
+          </div>
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-amber-300">NDTI (Turbidity / Silt Index) = (Red − Green) / (Red + Green)</div>
+            <p class="text-slate-300 mt-0.5">Measures how muddy or sediment-rich the water is. Higher values indicate heavy monsoon siltation or runoff, useful for fisheries management.</p>
+          </div>
+          <div class="rounded-lg bg-slate-950/70 border border-slate-800 p-3">
+            <div class="font-semibold text-emerald-300">Hydro-Period Persistence (%) = (Months with Water / 12) × 100</div>
+            <p class="text-slate-300 mt-0.5">Counts how often a spot stays underwater all year. Above 75% = <strong>Permanent Water</strong>; 25–75% = <strong>Seasonal Wetland</strong>; below 25% = <strong>Ephemeral Floodplain</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glossary -->
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold text-sky-300">3. Glossary of Terms</h3>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-slate-300">
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">Beel</dt>
+            <dd>Assamese term for a natural floodplain wetland, oxbow lake, or marsh used for fishing and irrigation.</dd>
+          </div>
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">SAR Backscatter (dB)</dt>
+            <dd>Radar echo strength. Calm water acts like a mirror and bounces radar away, giving very low readings (around -18 to -21 dB).</dd>
+          </div>
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">Water Hyacinth Bloom</dt>
+            <dd>Fast-growing floating weed that covers open water, blocks sunlight, and reduces fish oxygen levels.</dd>
+          </div>
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">GeoJSON &amp; OGC WFS</dt>
+            <dd>Open, standard map file/web formats so ASSAC officers can open JalDrishti layers directly inside QGIS or ArcGIS.</dd>
+          </div>
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">Irrigation Command Area (ha)</dt>
+            <dd>Total farmland area (in hectares) that can be watered from a wetland's intake or canal system.</dd>
+          </div>
+          <div class="rounded-lg bg-slate-950/60 border border-slate-800 p-2.5">
+            <dt class="font-semibold text-white">ASSAC</dt>
+            <dd>Assam State Space Application Centre, the nodal state agency for remote sensing and GIS mapping in Assam.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
 
   <!-- OGC / Export Modal -->
   <div id="export-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">

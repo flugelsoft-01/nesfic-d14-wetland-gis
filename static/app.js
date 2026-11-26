@@ -583,4 +583,23 @@ function toggleExportModal(open) {
   document.getElementById("export-modal").classList.toggle("hidden", !open);
 }
 
-window.addEventListener("DOMContentLoaded", init);
+function openInfoModal(which) {
+  closeInfoModals();
+  const el = document.getElementById(`${which}-modal`);
+  if (el) el.classList.remove("hidden");
+  if (history.replaceState) history.replaceState(null, "", `#${which}`);
+}
+
+function closeInfoModals() {
+  document.getElementById("tutorial-modal")?.classList.add("hidden");
+  document.getElementById("technical-modal")?.classList.add("hidden");
+  if (window.location.hash === "#tutorial" || window.location.hash === "#technical") {
+    if (history.replaceState) history.replaceState(null, "", window.location.pathname);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  init();
+  if (window.location.hash === "#tutorial") openInfoModal("tutorial");
+  if (window.location.hash === "#technical") openInfoModal("technical");
+});
