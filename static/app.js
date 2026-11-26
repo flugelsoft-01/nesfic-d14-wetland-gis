@@ -10,7 +10,7 @@ let fvLat = 26.118;
 let fvLng = 91.662;
 
 const BASEMAPS = {
-  dark: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+  light: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
   satellite: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   terrain: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
 };
@@ -125,9 +125,9 @@ function initMap() {
       sources: {
         basemap: {
           type: "raster",
-          tiles: [BASEMAPS.dark],
+          tiles: [BASEMAPS.light],
           tileSize: 256,
-          attribution: "© OpenStreetMap © CARTO",
+          attribution: "Tiles © Esri — Light Gray Canvas",
         },
       },
       layers: [{ id: "basemap-layer", type: "raster", source: "basemap" }],
@@ -158,7 +158,7 @@ function initMap() {
           "At-Risk", "#f59e0b",
           "#06b6d4",
         ],
-        "fill-opacity": 0.44,
+        "fill-opacity": 0.45,
       },
     });
 
@@ -167,7 +167,7 @@ function initMap() {
       type: "line",
       source: "wetlands-seasonal",
       paint: {
-        "line-color": ["case", ["==", ["get", "selected"], true], "#ffffff", "#22d3ee"],
+        "line-color": ["case", ["==", ["get", "selected"], true], "#0f172a", "#0284c7"],
         "line-width": ["case", ["==", ["get", "selected"], true], 3, 1.5],
       },
     });
@@ -183,7 +183,7 @@ function initMap() {
       id: "wetlands-permanent-outline",
       type: "line",
       source: "wetlands-permanent",
-      paint: { "line-color": "#bae6fd", "line-width": 1, "line-dasharray": [2, 2] },
+      paint: { "line-color": "#0369a1", "line-width": 1, "line-dasharray": [2, 2] },
     });
 
     map.addLayer({
@@ -192,9 +192,9 @@ function initMap() {
       source: "wetlands-points",
       paint: {
         "circle-radius": ["case", ["!=", ["get", "alertStatus"], "Normal"], 7, 5],
-        "circle-color": ["case", ["!=", ["get", "alertStatus"], "Normal"], "#f43f5e", "#22d3ee"],
+        "circle-color": ["case", ["!=", ["get", "alertStatus"], "Normal"], "#e11d48", "#0891b2"],
         "circle-stroke-width": 2,
-        "circle-stroke-color": "#0f172a",
+        "circle-stroke-color": "#ffffff",
       },
     });
 
@@ -205,10 +205,10 @@ function initMap() {
       popup
         .setLngLat(e.lngLat)
         .setHTML(`<div class="text-xs">
-          <div class="font-semibold text-cyan-300">${p.name}</div>
-          <div class="text-slate-300">${p.district} · ${p.regime}</div>
-          <div class="mt-1">Water Spread: <b>${p.waterAreaHa} ha</b></div>
-          ${p.alertStatus !== "Normal" ? `<div class="mt-1 text-rose-400">⚠ ${p.alertStatus}</div>` : ""}
+          <div class="font-semibold text-cyan-700">${p.name}</div>
+          <div class="text-slate-600">${p.district} · ${p.regime}</div>
+          <div class="mt-1 text-slate-900">Water Spread: <b>${p.waterAreaHa} ha</b></div>
+          ${p.alertStatus !== "Normal" ? `<div class="mt-1 text-rose-600 font-medium">⚠ ${p.alertStatus}</div>` : ""}
         </div>`)
         .addTo(map);
     };
@@ -242,10 +242,10 @@ function updateMapData() {
 
 function switchBasemap(style) {
   document.querySelectorAll(".bm-btn").forEach((b) => {
-    b.className = "bm-btn px-2.5 py-1 text-xs font-medium rounded-md text-slate-300 hover:bg-slate-800";
+    b.className = "bm-btn px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 hover:bg-slate-100";
   });
   document.getElementById(`bm-${style}`).className =
-    "bm-btn px-2.5 py-1 text-xs font-medium rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/40";
+    "bm-btn px-2.5 py-1 text-xs font-medium rounded-md bg-cyan-50 text-cyan-700 border border-cyan-200";
   if (map && mapLoaded) {
     map.getSource("basemap")?.setTiles([BASEMAPS[style]]);
   }
@@ -267,8 +267,8 @@ function setSeason(s) {
   document.querySelectorAll(".season-btn").forEach((btn) => {
     const active = btn.dataset.season === s;
     btn.className = active
-      ? "season-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-slate-950"
-      : "season-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800";
+      ? "season-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 text-white"
+      : "season-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white text-slate-700 border border-slate-200 hover:bg-slate-100";
   });
   document.getElementById("dl-geojson").href = `/api/wetlands?format=geojson&season=${s}`;
   document.getElementById("dl-csv").href = `/api/wetlands?format=csv&season=${s}`;
@@ -350,11 +350,11 @@ function renderChart(items) {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: { stacked: true, ticks: { color: "#94a3b8", font: { size: 11 } }, grid: { color: "#1e293b" } },
-        y: { stacked: true, ticks: { color: "#94a3b8", font: { size: 11 } }, grid: { color: "#1e293b" } },
+        x: { stacked: true, ticks: { color: "#475569", font: { size: 11 } }, grid: { color: "#e2e8f0" } },
+        y: { stacked: true, ticks: { color: "#475569", font: { size: 11 } }, grid: { color: "#e2e8f0" } },
       },
       plugins: {
-        legend: { labels: { color: "#cbd5e1", font: { size: 11 } } },
+        legend: { labels: { color: "#334155", font: { size: 11 } } },
       },
     },
   });
@@ -370,27 +370,27 @@ function renderInspector(items) {
         <div class="flex items-start justify-between">
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="text-sm font-bold text-white">${w.name}</h3>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-cyan-300">${w.id}</span>
+              <h3 class="text-sm font-bold text-slate-900">${w.name}</h3>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200">${w.id}</span>
             </div>
-            <p class="text-xs text-slate-400">${w.district} (${w.block}) · ${w.wetlandType}</p>
+            <p class="text-xs text-slate-500">${w.district} (${w.block}) · ${w.wetlandType}</p>
           </div>
-          <button onclick="selectWetland(null)" class="text-xs text-slate-400 hover:text-white">Clear</button>
+          <button onclick="selectWetland(null)" class="text-xs text-slate-500 hover:text-slate-900">Clear</button>
         </div>
         <div class="grid grid-cols-4 gap-2 text-xs">
-          <div class="rounded-lg bg-slate-950 p-2 border border-slate-800"><div class="text-[10px] text-slate-400">NDWI</div><div class="font-semibold text-cyan-300">${m.ndwi}</div></div>
-          <div class="rounded-lg bg-slate-950 p-2 border border-slate-800"><div class="text-[10px] text-slate-400">MNDWI</div><div class="font-semibold text-sky-300">${m.mndwi}</div></div>
-          <div class="rounded-lg bg-slate-950 p-2 border border-slate-800"><div class="text-[10px] text-slate-400">NDTI</div><div class="font-semibold text-amber-300">${m.ndti}</div></div>
-          <div class="rounded-lg bg-slate-950 p-2 border border-slate-800"><div class="text-[10px] text-slate-400">SAR dB</div><div class="font-semibold text-emerald-300">${m.sarBackscatterDb}</div></div>
+          <div class="rounded-lg bg-slate-50 p-2 border border-slate-200"><div class="text-[10px] text-slate-500">NDWI</div><div class="font-semibold text-cyan-700">${m.ndwi}</div></div>
+          <div class="rounded-lg bg-slate-50 p-2 border border-slate-200"><div class="text-[10px] text-slate-500">MNDWI</div><div class="font-semibold text-sky-700">${m.mndwi}</div></div>
+          <div class="rounded-lg bg-slate-50 p-2 border border-slate-200"><div class="text-[10px] text-slate-500">NDTI</div><div class="font-semibold text-amber-700">${m.ndti}</div></div>
+          <div class="rounded-lg bg-slate-50 p-2 border border-slate-200"><div class="text-[10px] text-slate-500">SAR dB</div><div class="font-semibold text-emerald-700">${m.sarBackscatterDb}</div></div>
         </div>
-        <div class="flex flex-wrap items-center justify-between text-xs text-slate-300">
+        <div class="flex flex-wrap items-center justify-between text-xs text-slate-700">
           <span>Fisher HHs: <b>${w.fisheriesDependenceHouseholds}</b></span>
           <span>Irrigation: <b>${w.irrigationCommandHa} ha</b></span>
           <span>Persistence: <b>${w.hydroPeriodPersistencePct}%</b></span>
         </div>
-        <div class="flex items-center justify-between pt-2 border-t border-slate-800">
-          <span class="text-[11px] text-slate-400">Sensor: ${m.sensorSource}</span>
-          <button onclick="goToFieldVerify('${w.id}')" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-xs font-medium">
+        <div class="flex items-center justify-between pt-2 border-t border-slate-200">
+          <span class="text-[11px] text-slate-500">Sensor: ${m.sensorSource}</span>
+          <button onclick="goToFieldVerify('${w.id}')" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium">
             Field Verify →
           </button>
         </div>
@@ -400,21 +400,21 @@ function renderInspector(items) {
 
   panel.innerHTML = `
     <div class="flex items-center justify-between mb-2">
-      <h3 class="text-sm font-semibold text-slate-100">Wetland Inventory (${items.length})</h3>
-      <span class="text-[11px] text-slate-400">Click row or map polygon</span>
+      <h3 class="text-sm font-semibold text-slate-900">Wetland Inventory (${items.length})</h3>
+      <span class="text-[11px] text-slate-500">Click row or map polygon</span>
     </div>
     <div class="max-h-48 overflow-y-auto space-y-1.5 pr-1">
       ${items
         .map(
           (item) => `
-        <button onclick="selectWetland('${item.id}')" class="w-full flex items-center justify-between rounded-lg bg-slate-950/70 hover:bg-slate-800/80 border border-slate-800 px-3 py-2 text-left text-xs transition">
+        <button onclick="selectWetland('${item.id}')" class="w-full flex items-center justify-between rounded-lg bg-slate-50 hover:bg-cyan-50/60 border border-slate-200 px-3 py-2 text-left text-xs transition">
           <div>
-            <div class="font-medium text-slate-100">${item.name}</div>
-            <div class="text-[11px] text-slate-400">${item.district} · ${item.regime} (${item.hydroPeriodPersistencePct}%)</div>
+            <div class="font-medium text-slate-900">${item.name}</div>
+            <div class="text-[11px] text-slate-500">${item.district} · ${item.regime} (${item.hydroPeriodPersistencePct}%)</div>
           </div>
           <div class="text-right">
-            <div class="font-semibold text-cyan-300">${item.seasons[activeSeason].waterAreaHa} ha</div>
-            <div class="text-[10px] ${item.alertStatus !== "Normal" ? "text-rose-400" : "text-emerald-400"}">${item.alertStatus}</div>
+            <div class="font-semibold text-cyan-700">${item.seasons[activeSeason].waterAreaHa} ha</div>
+            <div class="text-[10px] ${item.alertStatus !== "Normal" ? "text-rose-600 font-medium" : "text-emerald-700"}">${item.alertStatus}</div>
           </div>
         </button>`
         )
@@ -427,33 +427,33 @@ function renderAlerts() {
   grid.innerHTML = allAlerts
     .map(
       (a) => `
-    <div class="rounded-xl border border-slate-800 bg-slate-900/80 p-4 flex flex-col justify-between gap-3">
+    <div class="rounded-xl border border-slate-200 bg-white p-4 flex flex-col justify-between gap-3 shadow-sm">
       <div>
         <div class="flex items-start justify-between gap-2">
           <div>
-            <h3 class="text-sm font-semibold text-slate-100">${a.wetlandName}</h3>
-            <p class="text-xs text-slate-400">${a.district} · ${a.id} · Detected ${a.detectedAt}</p>
+            <h3 class="text-sm font-semibold text-slate-900">${a.wetlandName}</h3>
+            <p class="text-xs text-slate-500">${a.district} · ${a.id} · Detected ${a.detectedAt}</p>
           </div>
           <span class="text-[11px] font-medium px-2 py-0.5 rounded-full border ${
             a.severity === "High"
-              ? "bg-rose-500/15 text-rose-300 border-rose-500/30"
-              : "bg-amber-500/15 text-amber-300 border-amber-500/30"
+              ? "bg-rose-50 text-rose-700 border-rose-200"
+              : "bg-amber-50 text-amber-700 border-amber-200"
           }">${a.alertType}</span>
         </div>
-        <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg bg-slate-950/70 border border-slate-800 p-2.5 text-xs">
-          <div><div class="text-[10px] text-slate-400 uppercase">Baseline</div><div class="font-semibold">${a.baselineHa} ha</div></div>
-          <div><div class="text-[10px] text-slate-400 uppercase">Observed</div><div class="font-semibold">${a.observedHa} ha</div></div>
-          <div><div class="text-[10px] text-slate-400 uppercase">Delta</div><div class="font-semibold text-rose-400">${a.areaDeltaPct}%</div></div>
+        <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-xs">
+          <div><div class="text-[10px] text-slate-500 uppercase">Baseline</div><div class="font-semibold text-slate-900">${a.baselineHa} ha</div></div>
+          <div><div class="text-[10px] text-slate-500 uppercase">Observed</div><div class="font-semibold text-slate-900">${a.observedHa} ha</div></div>
+          <div><div class="text-[10px] text-slate-500 uppercase">Delta</div><div class="font-semibold text-rose-600">${a.areaDeltaPct}%</div></div>
         </div>
-        <p class="mt-3 text-xs text-slate-300 leading-relaxed">${a.summary}</p>
-        <p class="mt-1 text-[11px] text-slate-400">Routed to: ${a.assignedTo}</p>
+        <p class="mt-3 text-xs text-slate-700 leading-relaxed">${a.summary}</p>
+        <p class="mt-1 text-[11px] text-slate-500">Routed to: ${a.assignedTo}</p>
       </div>
-      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800">
-        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300">Status: ${a.status}</span>
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
+        <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-700">Status: ${a.status}</span>
         <div class="flex items-center gap-2">
-          <button onclick="locateAlert('${a.wetlandId}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">Locate</button>
-          ${a.status === "Open" ? `<button onclick="dispatchAlert('${a.id}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Dispatch</button>` : ""}
-          ${a.status !== "Resolved" ? `<button onclick="goToFieldVerify('${a.wetlandId}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Verify →</button>` : ""}
+          <button onclick="locateAlert('${a.wetlandId}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800">Locate</button>
+          ${a.status === "Open" ? `<button onclick="dispatchAlert('${a.id}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-cyan-50 text-cyan-700 border border-cyan-200 hover:bg-cyan-100">Dispatch</button>` : ""}
+          ${a.status !== "Resolved" ? `<button onclick="goToFieldVerify('${a.wetlandId}')" class="px-2.5 py-1.5 text-xs rounded-lg bg-emerald-600 text-white hover:bg-emerald-700">Verify →</button>` : ""}
         </div>
       </div>
     </div>`
@@ -466,21 +466,21 @@ function renderVerifications() {
   log.innerHTML = allVerifications
     .map(
       (v) => `
-    <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-3.5 text-xs space-y-1.5">
+    <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-xs space-y-1.5">
       <div class="flex items-start justify-between">
         <div>
-          <span class="font-semibold text-cyan-300">${v.wetlandName}</span>
-          <span class="text-slate-400">(${v.district})</span>
-          <div class="text-[11px] text-slate-400">${v.id} · ${v.officerName} (${v.role})</div>
+          <span class="font-semibold text-cyan-700">${v.wetlandName}</span>
+          <span class="text-slate-500">(${v.district})</span>
+          <div class="text-[11px] text-slate-500">${v.id} · ${v.officerName} (${v.role})</div>
         </div>
-        <span class="text-[11px] text-slate-400">${v.submittedAt}</span>
+        <span class="text-[11px] text-slate-500">${v.submittedAt}</span>
       </div>
       <div class="flex flex-wrap gap-2 text-[11px]">
-        <span class="px-2 py-0.5 rounded bg-slate-800">Water: ${v.waterLevelStatus}</span>
-        <span class="px-2 py-0.5 rounded bg-slate-800">Hyacinth: ${v.hyacinthPresence}</span>
-        ${v.encroachmentObserved ? `<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">Encroachment Flagged</span>` : ""}
+        <span class="px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">Water: ${v.waterLevelStatus}</span>
+        <span class="px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">Hyacinth: ${v.hyacinthPresence}</span>
+        ${v.encroachmentObserved ? `<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">Encroachment Flagged</span>` : ""}
       </div>
-      <p class="text-slate-300">${v.notes}</p>
+      <p class="text-slate-700">${v.notes}</p>
       <div class="text-[10px] text-slate-500">GPS: ${v.gpsLat.toFixed(4)}° N, ${v.gpsLng.toFixed(4)}° E</div>
     </div>`
     )
@@ -493,8 +493,8 @@ function switchTab(tab) {
     const btn = document.getElementById(`tab-btn-${t}`);
     btn.className =
       t === tab
-        ? "px-3 py-1.5 rounded-lg text-xs font-medium transition bg-cyan-500/20 text-cyan-300 border border-cyan-500/40"
-        : "px-3 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:bg-slate-800";
+        ? "px-3 py-1.5 rounded-lg text-xs font-medium transition bg-white text-cyan-700 border border-cyan-200 shadow-sm"
+        : "px-3 py-1.5 rounded-lg text-xs font-medium transition text-slate-600 hover:bg-slate-200/70";
   });
   if (tab === "map" && map) setTimeout(() => map.resize(), 100);
 }
